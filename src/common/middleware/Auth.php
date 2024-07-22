@@ -13,7 +13,6 @@ use tpext\myadmin\admin\model\AdminUser;
 use tpext\myadmin\common\event\Log;
 use tpext\myadmin\common\event\Menu;
 use tpext\myadmin\common\event\Assets;
-use tpext\myadmin\common\MinifyTool;
 use tpext\myadmin\common\Module;
 use tpext\think\View;
 
@@ -25,6 +24,24 @@ class Auth
 {
     /** @var App */
     protected $app;
+
+    protected $js = [
+        '/assets/lightyearadmin/js/jquery.min.js',
+        '/assets/lightyearadmin/js/bootstrap.min.js',
+        '/assets/lightyearadmin/js/jquery.lyear.loading.js',
+        '/assets/lightyearadmin/js/bootstrap-notify.min.js',
+        '/assets/lightyearadmin/js/jconfirm/jquery-confirm.min.js',
+        '/assets/lightyearadmin/js/lightyear.js',
+        '/assets/lightyearadmin/js/main.min.js',
+    ];
+
+    protected $css = [
+        '/assets/lightyearadmin/css/bootstrap.min.css',
+        '/assets/lightyearadmin/css/materialdesignicons.min.css',
+        '/assets/lightyearadmin/css/animate.css',
+        '/assets/lightyearadmin/css/style.min.css',
+        '/assets/lightyearadmin/js/jconfirm/jquery-confirm.min.css',
+    ];
 
     public function __construct(App $app)
     {
@@ -79,7 +96,7 @@ class Auth
         $tplPath = $rootPath . implode(DIRECTORY_SEPARATOR, ['src', 'admin', 'view', 'tpl', '']);
 
         $config = [];
-        
+
         if (Module::isInstalled()) {
             config('dispatch_success_tmpl', $tplPath . 'dispatch_jump.tpl');
             config('dispatch_error_tmpl', $tplPath . 'dispatch_jump.tpl');
@@ -88,7 +105,7 @@ class Auth
         } else {
             $config = $instance->defaultConfig();
         }
-        
+
         $admin_layout = $rootPath . implode(DIRECTORY_SEPARATOR, ['src', 'admin', 'view', 'layout.html']);
 
         if ($config['minify']) {
@@ -96,10 +113,7 @@ class Auth
             $tool->minify();
         }
 
-        $css = MinifyTool::getCss();
-        $js = MinifyTool::getJs();
-
-        foreach ($css as &$c) {
+        foreach ($this->css as &$c) {
             if (strpos($c, '?') == false && strpos($c, 'http') == false) {
                 $c .= '?aver=' . $config['assets_ver'];
             }
@@ -107,7 +121,7 @@ class Auth
 
         unset($c);
 
-        foreach ($js as &$j) {
+        foreach ($this->js as &$j) {
             if (strpos($j, '?') == false && strpos($j, 'http') == false) {
                 $j .= '?aver=' . $config['assets_ver'];
             }
@@ -127,8 +141,8 @@ class Auth
                 'admin_copyright' => isset($config['copyright']) ? $config['copyright'] : '',
                 'admin_login_logo' => isset($config['login_logo']) ? $config['login_logo'] : '',
                 'admin_login_background_img' => isset($config['login_background_img']) ? $config['login_background_img'] : '',
-                'admin_js' => $js,
-                'admin_css' => $css,
+                'admin_js' => $this->js,
+                'admin_css' => $this->css,
                 'admin_layout' => $admin_layout,
                 'admin_assets_ver' => $config['assets_ver'],
             ]
