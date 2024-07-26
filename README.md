@@ -22,4 +22,6 @@
 
 `ichynul/tpext-tinyvue` 是替换`ichynul/tpextbuilder`的依赖，基于Vue3和tinyvue框架。
 
-支持tp6以上版本，`tpextmyadmin3.0`的可以修改`composer.json`升级。
+支持tp6以上版本，`tpextmyadmin3.0`的可以修改`composer.json`升级，
+
+升级后页面样式乱，访问一次 `/admin/extension/prepare`刷新资源。
