@@ -18,7 +18,7 @@
 },
 ```
 
-`ichynul/lightyearadmin`  是为了兼容bootstrape的页面（如dashbord）。
+`ichynul/lightyearadmin`  是为了兼容bootstrap的页面（如dashbord）。
 
 `ichynul/tpext-tinyvue` 是替换`ichynul/tpextbuilder`的依赖，基于Vue3和tinyvue框架。
 
