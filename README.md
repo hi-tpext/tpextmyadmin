@@ -10,9 +10,9 @@
 "require": {
     "topthink/framework": "^6.1.4",
     "topthink/think-orm": "^2.0",
-    "ichynul/tpextmyadmin": "^5.0",
+    "ichynul/tpextmyadmin": "^5.0.1",
     "ichynul/tpext": "^3.0",
-    "ichynul/tpext-tinyvue": "^5.0",
+    "ichynul/tpext-tinyvue": "^5.0.1",
     "ichynul/tpextmanager": "^3.0",
     "ichynul/lightyearadmin": "^1.0"
 },

@@ -108,11 +108,6 @@ class Auth
 
         $admin_layout = $rootPath . implode(DIRECTORY_SEPARATOR, ['src', 'admin', 'view', 'layout.html']);
 
-        if ($config['minify']) {
-            $tool = new MinifyTool;
-            $tool->minify();
-        }
-
         foreach ($this->css as &$c) {
             if (strpos($c, '?') == false && strpos($c, 'http') == false) {
                 $c .= '?aver=' . $config['assets_ver'];
