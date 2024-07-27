@@ -12,11 +12,8 @@
     "topthink/think-orm": "^2.0",
     "ichynul/tpextmyadmin": "^5.0.1",
     "ichynul/tpext-tinyvue": "^5.0.1",
-    "ichynul/lightyearadmin": "^1.0"
 },
 ```
-
-`ichynul/lightyearadmin`  是为了兼容bootstrap的页面（如dashbord）。
 
 `ichynul/tpext-tinyvue` 是替换`ichynul/tpextbuilder`的依赖，基于Vue3和tinyvue框架。
 
