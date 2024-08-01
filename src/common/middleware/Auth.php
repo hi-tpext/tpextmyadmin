@@ -33,6 +33,8 @@ class Auth
         '/assets/lightyearadmin/js/jconfirm/jquery-confirm.min.js',
         '/assets/lightyearadmin/js/lightyear.js',
         '/assets/lightyearadmin/js/main.min.js',
+        '/assets/tpextmyadmin/js/tpextbuilder.js',
+        '/assets/tpextmyadmin/js/layer/layer.js',
     ];
 
     protected $css = [
@@ -41,6 +43,7 @@ class Auth
         '/assets/lightyearadmin/css/animate.css',
         '/assets/lightyearadmin/css/style.min.css',
         '/assets/lightyearadmin/js/jconfirm/jquery-confirm.min.css',
+        '/assets/tpextmyadmin/css/tpextbuilder.css',
     ];
 
     public function __construct(App $app)

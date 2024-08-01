@@ -30,6 +30,8 @@ class Module extends baseModule
     protected $loginViews = ['1' => '风格1', '2' => '风格2', '3' => '风格3', '4' => '风格4'];
     protected $indexViews = ['1' => '默认lightYearAdmin'];
 
+    protected $assets = 'assets';
+
     /**
      * Undocumented function
      *
