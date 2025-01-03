@@ -472,6 +472,9 @@ class Index extends Controller
 
         if (isset($config['login_session_key']) && $config['login_session_key'] == '1') {
             if (!session('?login_session_key')) {
+                if (cookie('tpext_myadmin_entry')) {
+                    return $this->success('验证中...', cookie('tpext_myadmin_entry'), '', 1);
+                }
                 header("HTTP/1.1 404 Not Found");
                 exit;
             }

@@ -78,14 +78,17 @@ class Auth
             if (!$isLogin && !$isAdmin && $this->isInstalled()) {
                 $config = Module::getInstance()->getConfig();
 
+                cookie('after_login_url', request()->url(), ['expire' => 0, 'httponly' => true]);
+
                 if (isset($config['login_session_key']) && $config['login_session_key'] == '1') {
                     if (!session('?login_session_key')) {
+                        if (cookie('tpext_myadmin_entry')) {
+                            return $this->success('验证中...', cookie('tpext_myadmin_entry'), '', 1);
+                        }
                         header("HTTP/1.1 404 Not Found");
                         exit;
                     }
                 }
-
-                cookie('after_login_url', request()->url(), ['expire' => 0, 'httponly' => true]);
 
                 $this->error('登录超时，请重新登录！', url('/admin/index/login'));
             } else if ($isLogin && $isAdmin) {
