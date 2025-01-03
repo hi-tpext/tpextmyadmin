@@ -207,15 +207,18 @@ class Auth
 
             if (!$isLogin && !$isAdmin && $this->isInstalled()) {
                 $config = Module::getInstance()->getConfig();
+                
+                cookie('after_login_url', $this->app->request->url(), ['expire' => 0, 'httponly' => true]);
 
                 if (isset($config['login_session_key']) && $config['login_session_key'] == '1') {
                     if (!session('?login_session_key')) {
+                        if (cookie('tpext_myadmin_entry')) {
+                            return $this->success('验证中...', cookie('tpext_myadmin_entry'), '', 1);
+                        }
                         header("HTTP/1.1 404 Not Found");
                         exit;
                     }
                 }
-
-                cookie('after_login_url', $this->app->request->url(), ['expire' => 0, 'httponly' => true]);
 
                 return $this->error('登录超时，请重新登录！', url('/admin/index/login')->__toString());
             } else if ($isLogin && $isAdmin) {
@@ -224,7 +227,7 @@ class Auth
         }
     }
 
-    protected function success($msg = '', $url)
+    protected function success($msg = '', $url, $data = '', $wait = 2)
     {
         if ($this->app->request->isAjax()) {
             return json([
@@ -238,10 +241,10 @@ class Auth
 
         $tplPath = $rootPath . implode(DIRECTORY_SEPARATOR, ['src', 'admin', 'view', 'tpl', 'dispatch_jump']) . '.tpl';
 
-        return view($tplPath, ['msg' => $msg, 'url' => $url, 'code' => 1, 'wait' => 3]);
+        return view($tplPath, ['msg' => $msg, 'url' => $url, 'code' => 1, 'wait' => $wait]);
     }
 
-    protected function error($msg = '', $url)
+    protected function error($msg = '', $url, $data = '', $wait = 2)
     {
         if ($this->app->request->isAjax()) {
             return json([
@@ -255,6 +258,6 @@ class Auth
 
         $tplPath = $rootPath . implode(DIRECTORY_SEPARATOR, ['src', 'admin', 'view', 'tpl', 'dispatch_jump']) . '.tpl';
 
-        return view($tplPath, ['msg' => $msg, 'url' => $url, 'code' => 0, 'wait' => 3]);
+        return view($tplPath, ['msg' => $msg, 'url' => $url, 'code' => 0, 'wait' => $wait]);
     }
 }
